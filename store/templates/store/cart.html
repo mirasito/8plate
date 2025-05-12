@@ -1,0 +1,20 @@
+<!-- store/templates/store/cart.html -->
+{% extends 'store/base.html' %}
+{% block title %}Корзина{% endblock %}
+{% block content %}
+  <h2>Корзина</h2>
+  {% if items %}
+    <ul class="list-group mb-3">
+      {% for entry in items %}
+        <li class="list-group-item d-flex justify-content-between">
+          <div>{{ entry.product.name }} (x{{ entry.quantity }})</div>
+          <div>{{ entry.product.price * entry.quantity }} ₸</div>
+        </li>
+      {% endfor %}
+    </ul>
+    <p><strong>Итого:</strong> {{ total }} ₸</p>
+    <a href="{% url 'checkout' %}" class="btn btn-success">Оформить заказ</a>
+  {% else %}
+    <p>Корзина пуста.</p>
+  {% endif %}
+{% endblock %}

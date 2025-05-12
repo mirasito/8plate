@@ -1,0 +1,16 @@
+<!-- store/templates/store/product_detail.html -->
+{% extends 'store/base.html' %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+    </div>
+    <div class="col-md-6">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <p><strong>Цена: </strong>{{ product.price }} ₸</p>
+      <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary btn-lg">Добавить в корзину</a>
+    </div>
+  </div>
+{% endblock %}

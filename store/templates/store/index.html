@@ -1,0 +1,40 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+<!-- Баннер -->
+{% if banners %}
+<div id="carouselExample" class="carousel slide mb-4" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for banner in banners %}
+      <div class="carousel-item{% if forloop.first %} active{% endif %}">
+        <img src="{{ banner.image.url }}" class="d-block w-100" alt="{{ banner.title }}">
+      </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+{% endif %}
+<!-- Категории -->
+<h2>Категории</h2>
+<div class="row">
+  {% for cat in categories %}
+  <div class="col-6 col-md-4 col-lg-3 mb-4">
+    <div class="card mb-4">
+      <img src="{{ cat.image.url }}" class="card-img-top" alt="{{ cat.name }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ cat.name }}</h5>
+        <a href="{% url 'category' cat.id %}" class="btn btn-primary">Смотреть</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

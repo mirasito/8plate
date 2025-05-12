@@ -1,0 +1,29 @@
+<!-- store/templates/store/checkout.html -->
+{% extends 'store/base.html' %}
+{% block title %}Оформление заказа{% endblock %}
+{% block content %}
+  <h2>Оформление заказа</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="phone" class="form-label">Номер телефона:</label>
+      <input type="text" class="form-control" id="phone" name="phone" required>
+    </div>
+    <div class="mb-3">
+      <label for="address" class="form-label">Адрес доставки:</label>
+      <input type="text" class="form-control" id="address" name="address">
+    </div>
+    <button type="submit" class="btn btn-primary">Оформить</button>
+  </form>
+  {% if order %}
+    <p>Итоговая сумма: {{ order.total_price }} ₸</p>
+    <!-- Форма для оплаты через Kaspi Webpay -->
+    <form method="POST" action="https://kaspi.kz/webpay">
+      {% csrf_token %}
+      <input type="hidden" name="merchant" value="YOUR_MERCHANT_ID">
+      <input type="hidden" name="amount" value="{{ order.total_price }}">
+      <!-- Дополнительные параметры (orderId, description и т.д.) в соответствии с документацией Kaspi -->
+      <button type="submit" class="btn btn-warning">Оплатить через Kaspi Webpay</button>
+    </form>
+  {% endif %}
+{% endblock %}
